@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE generatorConfiguration PUBLIC
+        "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd" >
+<generatorConfiguration>
+	<!-- Eclipse使用说明:Run As -> Run Configurations -> Maven Build -> New -> Base directory -> Browse File System -> 项目根目录 -> Goals:mybatis-generator:generate -->
+
+	<context id="context" targetRuntime="MyBatis3">
+		<commentGenerator>
+			<!-- 是否取消注释 -->
+			<property name="suppressAllComments" value="true" />
+			<!-- 是否生成注释代时间戳 -->
+			<property name="suppressDate" value="false"/>
+		</commentGenerator>
+
+		<!-- Database Configurations -->
+		<jdbcConnection driverClass="com.mysql.jdbc.Driver"
+			connectionURL="jdbc:mysql://127.0.0.1/spring_boot?useUnicode=true&amp;characterEncoding=UTF-8&amp;autoReconnect=true"
+			userId="root" password="root" />
+
+		<!-- 类型转换 -->
+		<javaTypeResolver>
+			<!-- 是否使用bigDecimal， false可自动转化以下类型（Long, Integer, Short, etc.） -->
+			<property name="forceBigDecimals" value="false"/>
+		</javaTypeResolver>
+
+		<!-- Model Configurations -->
+		<!--生成Model类存放位置 -->
+		<javaModelGenerator targetPackage="com.example.demo.model" targetProject="src/main/java">
+			<property name="enableSubPackages" value="false" />
+			<!-- 是否针对string类型的字段在set的时候进行trim调用 -->
+			<property name="trimStrings" value="false" />
+		</javaModelGenerator>
+
+		<!-- Mapper XML Configurations-->
+		<!--生成映射文件存放位置 -->
+		<!--targetProject src/main/java or MAVEN(generate-sources) -->
+		<sqlMapGenerator targetPackage="mapper" targetProject="src/main/resources">
+			<property name="enableSubPackages" value="false" />
+		</sqlMapGenerator>
+
+		<!-- Mapper Interface Configurations -->
+		<!--生成Dao类存放位置 -->
+		<javaClientGenerator targetPackage="com.example.demo.dao" targetProject="src/main/java" type="XMLMAPPER">
+			<property name="enableSubPackages" value="false" />
+		</javaClientGenerator>
+
+		<table tableName="t_user" domainObjectName="User"
+		   enableInsert="true"
+		   enableDeleteByPrimaryKey="true"
+		   enableUpdateByPrimaryKey="true"
+		   enableSelectByPrimaryKey="true"
+		   enableCountByExample="false"
+		   enableDeleteByExample="false"
+		   enableSelectByExample="false"
+		   enableUpdateByExample="false">
+
+			<!-- 使用从数据库元数据获取的列名作为生成的实体对象的属性 -->
+			<property name="useActualColumnNames" value="true"/>
+		</table>
+	</context>
+</generatorConfiguration>
