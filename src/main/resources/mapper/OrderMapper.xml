@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.demo.dao.OrderMapper">
+	<resultMap id="BaseResultMap" type="com.example.demo.model.Order">
+		<id column="id" property="id" jdbcType="BIGINT" />
+		<result column="orderNo" property="orderNo" jdbcType="VARCHAR" />
+		<result column="status" property="status" jdbcType="CHAR" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		id, orderNo, status
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.Long">
+		select
+		<include refid="Base_Column_List" />
+		from t_order
+		where id = #{id,jdbcType=BIGINT}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+		delete from t_order
+		where id = #{id,jdbcType=BIGINT}
+	</delete>
+	<insert id="insert" parameterType="com.example.demo.model.Order">
+		insert into t_order (id, orderNo, status
+		)
+		values (#{id,jdbcType=BIGINT}, #{orderNo,jdbcType=VARCHAR},
+		#{status,jdbcType=CHAR}
+		)
+	</insert>
+	<insert id="insertSelective" parameterType="com.example.demo.model.Order">
+		insert into t_order
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="orderNo != null">
+				orderNo,
+			</if>
+			<if test="status != null">
+				status,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=BIGINT},
+			</if>
+			<if test="orderNo != null">
+				#{orderNo,jdbcType=VARCHAR},
+			</if>
+			<if test="status != null">
+				#{status,jdbcType=CHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.example.demo.model.Order">
+		update t_order
+		<set>
+			<if test="orderNo != null">
+				orderNo = #{orderNo,jdbcType=VARCHAR},
+			</if>
+			<if test="status != null">
+				status = #{status,jdbcType=CHAR},
+			</if>
+		</set>
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.example.demo.model.Order">
+		update t_order
+		set orderNo = #{orderNo,jdbcType=VARCHAR},
+		status = #{status,jdbcType=CHAR}
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+
+	<update id="updateByOrderNo" parameterType="com.example.demo.model.Order">
+		update t_order
+		<set>
+			<if test="status != null">
+				status = #{status,jdbcType=CHAR},
+			</if>
+		</set>
+		where orderNo = #{orderNo,jdbcType=VARCHAR}
+	</update>
+</mapper>

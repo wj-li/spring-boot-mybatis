@@ -33,3 +33,11 @@ CREATE TABLE `t_user` (
 INSERT INTO `t_user` VALUES ('1', '关羽', '2018-03-10 14:23:50', '2018-03-10 14:23:54');
 INSERT INTO `t_user` VALUES ('2', '诸葛亮', '2018-03-10 14:32:20', '2018-03-10 14:32:22');
 INSERT INTO `t_user` VALUES ('3', '刘备', '2018-03-10 14:32:37', '2018-03-10 14:32:41');
+
+
+CREATE TABLE `t_order` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `orderNo` varchar(20) DEFAULT NULL,
+  `status` enum('0','1') DEFAULT NULL COMMENT '0:失败，1：成功',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8
