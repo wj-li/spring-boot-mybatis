@@ -15,7 +15,7 @@ import com.rabbitmq.client.Channel;
  * 
  *
  */
-@Component
+//@Component
 public class MessageReceiver {
 	
 	protected static final Logger logger = LoggerFactory.getLogger(MessageReceiver.class);
@@ -30,7 +30,7 @@ public class MessageReceiver {
 	 * @param channel
 	 * @throws Exception
 	 */
-	@RabbitListener(queues = "order_system_queue")
+//	@RabbitListener(queues = "order_system_queue")
 	public void receiverOne(Message message, Channel channel) throws Exception {
 		// TODO Auto-generated method stub
 		logger.info("MessageReceiver into method receiverOne.");

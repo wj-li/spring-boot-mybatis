@@ -14,24 +14,24 @@
 		parameterType="java.lang.Long">
 		select
 		<include refid="Base_Column_List" />
-		from t_user
+		from T_USER
 		where id = #{id,jdbcType=BIGINT}
 	</select>
 	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
-		delete from t_user
+		delete from T_USER
 		where id = #{id,jdbcType=BIGINT}
 	</delete>
-	<insert id="insert" parameterType="com.example.demo.model.User">
-		insert into t_user (id, name,
+	<insert id="insert" parameterType="com.example.demo.model.User" useGeneratedKeys="true" keyProperty="id">
+		insert into T_USER (name,
 		gmt_create,
 		gmt_modified)
-		values (#{id,jdbcType=BIGINT},
+		values (
 		#{name,jdbcType=VARCHAR},
 		#{gmt_create,jdbcType=TIMESTAMP},
 		#{gmt_modified,jdbcType=TIMESTAMP})
 	</insert>
 	<insert id="insertSelective" parameterType="com.example.demo.model.User">
-		insert into t_user
+		insert into T_USER
 		<trim prefix="(" suffix=")" suffixOverrides=",">
 			<if test="id != null">
 				id,
@@ -62,7 +62,7 @@
 		</trim>
 	</insert>
 	<update id="updateByPrimaryKeySelective" parameterType="com.example.demo.model.User">
-		update t_user
+		update T_USER
 		<set>
 			<if test="name != null">
 				name = #{name,jdbcType=VARCHAR},
@@ -77,7 +77,7 @@
 		where id = #{id,jdbcType=BIGINT}
 	</update>
 	<update id="updateByPrimaryKey" parameterType="com.example.demo.model.User">
-		update t_user
+		update T_USER
 		set
 		name = #{name,jdbcType=VARCHAR},
 		gmt_create =
@@ -90,10 +90,33 @@
 	<select id="select" resultMap="BaseResultMap" parameterType="com.example.demo.model.User">
 		select
 		<include refid="Base_Column_List" />
-		from t_user
+		from T_USER
 		<where>
 			<if test="name != null">
 				INSTR(name,#{name,jdbcType=VARCHAR})
+			</if>
+			<if test="gmt_create != null">
+				gmt_create between  DATE_FORMAT(DATE_SUB(NOW(),INTERVAL 1 DAY) ,'%Y-%m-%d 00:00:00') and DATE_FORMAT(DATE_SUB(NOW(),INTERVAL 0 DAY) ,'%Y-%m-%d 00:00:00')
+			</if>
+		</where>
+	</select>
+	<select id="selectByDateRange" resultMap="BaseResultMap" >
+		select
+		<include refid="Base_Column_List" />
+		from T_USER
+		<where>
+			<if test="start != null and end != null">
+				gmt_create between  #{start,jdbcType=TIMESTAMP} and #{end,jdbcType=TIMESTAMP}
+			</if>
+		</where>
+	</select>
+	<select id="selectByDate" resultMap="BaseResultMap" >
+		select
+		<include refid="Base_Column_List" />
+		from T_USER
+		<where>
+			<if test="date != null">
+				gmt_create = #{date,jdbcType=TIMESTAMP}
 			</if>
 		</where>
 	</select>

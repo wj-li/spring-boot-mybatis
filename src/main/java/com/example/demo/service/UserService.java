@@ -1,5 +1,6 @@
 package com.example.demo.service;
 
+import java.util.Date;
 import java.util.List;
 
 import com.example.demo.model.User;
@@ -18,4 +19,9 @@ public interface UserService {
     int updateByPrimaryKey(User record);
 
 	List<User> select(User user);
+
+	List<User> selectByDateRange(Date start, Date end);
+
+    List<User> selectByDate(Date date);
+
 }
