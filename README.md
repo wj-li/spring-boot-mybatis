@@ -1,5 +1,5 @@
 # spring-boot-mybatis
-Spring Boot集成Mybatis和PageHelper分页插件示例
+Spring Boot集成Mybatis、PageHelper分页插件、ShardingSphere 5.0.0-alpha示例
 
 新增了RabbitMQ示例代码
 
